@@ -1,0 +1,27 @@
+/* src/pages/Home.module.css */
+.homeContainer {
+  position: relative;
+  padding: 1rem;
+}
+
+/* 플로팅 액션 버튼 (FAB) */
+.fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.fab:hover {
+  background-color: #0051a3;
+}

@@ -1,0 +1,39 @@
+/* src/components/FormGroup.module.css */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.inputContainer {
+  position: relative;
+}
+
+/* 스타일이 적용되는 기본 입력 요소 (input, textarea, select 등) */
+.inputContainer input,
+.inputContainer textarea,
+.inputContainer select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 포커스 시 테두리와 그림자 효과 */
+.inputContainer input:focus,
+.inputContainer textarea:focus,
+.inputContainer select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+}
+
+/* 에러 상태 등 별도의 상태표시가 필요하면 추가 스타일 작성 가능 */

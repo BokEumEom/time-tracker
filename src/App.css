@@ -1,0 +1,38 @@
+/* src/App.css */
+
+/* 앱 전체 컨테이너: 중앙 정렬 및 패딩 적용 */
+.container {
+  max-width: 1280px;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  text-align: center;
+}
+
+/* 네비게이션 스타일 */
+nav {
+  margin-top: 1rem;
+}
+
+.nav-link {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary-hover);
+}
+
+/* 메인 영역 스타일 */
+main {
+  margin-top: 2rem;
+}
+
+/* 다크 모드: 그림자 제거 */
+@media (prefers-color-scheme: dark) {
+  .container {
+    box-shadow: none;
+  }
+}

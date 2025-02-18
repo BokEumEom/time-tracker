@@ -1,0 +1,41 @@
+/* src/index.css */
+
+/* 전역 리셋 및 박스 모델 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CSS 변수 설정: 전역에서 사용할 색상 및 폰트 등 */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --primary-color: #0070f3;
+  --primary-hover: #0051a3;
+  --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* 기본 바디 스타일 */
+body {
+  font-family: var(--font-family);
+  line-height: 1.5;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+/* 다크 모드 설정: prefers-color-scheme 미디어 쿼리 활용 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1e1e1e;
+    --text-color: #e0e0e0;
+    --primary-color: #4dabf7;
+    --primary-hover: #82cfff;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+}

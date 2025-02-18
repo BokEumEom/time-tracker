@@ -1,0 +1,46 @@
+/* src/components/MoodSelector.module.css */
+.moodSelector {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.moodOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.moodOption:hover {
+  transform: scale(1.1);
+}
+
+.radioInput {
+  display: none;
+}
+
+.iconWrapper {
+  border: 2px solid transparent;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.moodOption:hover .iconWrapper {
+  border-color: var(--primary-color);
+}
+
+.moodOption input:checked + .iconWrapper {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: #fff; /* 아이콘 색상 변경 (필요 시) */
+}
+
+.label {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}

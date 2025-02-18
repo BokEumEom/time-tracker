@@ -1,0 +1,44 @@
+/* src/components/Timeline.module.css */
+.timeline {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.eventList {
+  list-style: none;
+  padding: 0;
+}
+
+.eventItem {
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0;
+}
+
+.eventItem:last-child {
+  border-bottom: none;
+}
+
+.eventHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventMood {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+.eventTime {
+  margin: 5px 0;
+  font-size: 0.9em;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.clockIcon {
+  color: #0070f3;
+}
