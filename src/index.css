@@ -7,13 +7,23 @@
   box-sizing: border-box;
 }
 
+/* 폰트 설정 */
+@font-face {
+    font-family: 'Ownglyph_ryurue';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryurue-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* CSS 변수 설정: 전역에서 사용할 색상 및 폰트 등 */
 :root {
   --bg-color: #ffffff;
   --text-color: #333333;
   --primary-color: #0070f3;
   --primary-hover: #0051a3;
-  --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --secondary-color: #F4A261;
+  --secondary-hover: #E07A5F;
+  --font-family: 'Ownglyph_ryurue', 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 /* 기본 바디 스타일 */

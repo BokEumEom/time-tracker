@@ -9,6 +9,10 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.headerContent}>
         <h1 className={styles.title}>시간 기록 타임라인</h1>
+        <div className={styles.timelineIndicator}>
+          <div className={styles.timelineDot} />
+          <div className={styles.timelineLine} />
+        </div>
         <nav className={styles.nav}>
           <Link to="/" className={styles.navLink}>
             <Activity size={20} className={styles.navIcon} />

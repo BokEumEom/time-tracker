@@ -1,7 +1,6 @@
 /* src/pages/Home.module.css */
 .homeContainer {
   position: relative;
-  padding: 1rem;
 }
 
 /* 플로팅 액션 버튼 (FAB) */

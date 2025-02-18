@@ -45,7 +45,7 @@
 /* 슬라이드 업 애니메이션 */
 @keyframes slideUp {
   from {
-    transform: translateY(20px);
+    transform: translateY(100%);
     opacity: 0;
   }
   to {

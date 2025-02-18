@@ -34,26 +34,23 @@
   font-weight: 600;
   font-size: 1.1rem;
   transition: color 0.3s ease, transform 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
 }
 
-.navLink::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0%;
-  height: 2px;
+.navLink.active {
   background-color: var(--primary-color);
-  transition: width 0.3s ease;
+  color: white;
 }
 
 .navLink:hover {
-  color: var(--primary-hover);
-  transform: scale(1.05);
+  background-color: rgba(var(--primary-color-rgb), 0.2);
+  transform: translateY(-2px);
 }
 
-.navLink:hover::after {
-  width: 100%;
+.navLink::after {
+  display: none;
 }
 
 .navIcon {

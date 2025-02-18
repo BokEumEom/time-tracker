@@ -1,0 +1,41 @@
+.categorySelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.1rem;
+}
+
+.categoryButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.65rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.categoryButton span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.1rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+  font-family: var(--font-family);
+}
+
+.categoryButton:hover {
+    background-color: var(--primary-hover);
+}
+
+.categoryButton.selected {
+  background-color: var(--secondary-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .categoryButton span {
+    color: var(--text-color-dark, #e1e1e1);
+  }
+} 

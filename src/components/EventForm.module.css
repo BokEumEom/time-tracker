@@ -13,11 +13,13 @@
   background: none;
   border: none;
   color: var(--primary-color);
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
   display: flex;
   align-items: center;
+  font-family: var(--font-family);
 }
 
 .submitButton {
@@ -37,4 +39,24 @@
 .error {
   color: red;
   font-size: 0.8rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.formGroup label {
+  font-weight: 500;
+  text-align: left;
+}
+
+.select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }

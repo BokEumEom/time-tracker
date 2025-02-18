@@ -1,9 +1,10 @@
 // src/components/EventForm.jsx
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { MessageSquare } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import FormGroup from './FormGroup';
 import MoodSelector from './MoodSelector';
+import CategorySelector from './CategorySelector';
 import styles from './EventForm.module.css';
 
 export default function EventForm({ addEvent }) {
@@ -27,9 +28,10 @@ export default function EventForm({ addEvent }) {
   const [isNLMode, setIsNLMode] = useState(false);
   const [nlInput, setNlInput] = useState('');
 
-  // 커스텀 컴포넌트(MoodSelector)를 위해 mood 필드를 react-hook-form에 등록
+  // 커스텀 컴포넌트들을 위한 등록
   useEffect(() => {
     register('mood', { required: '감정을 선택하세요.' });
+    register('category', { required: '카테고리를 선택하세요.' });
   }, [register]);
 
   const toggleMode = () => setIsNLMode((prev) => !prev);
@@ -59,11 +61,39 @@ export default function EventForm({ addEvent }) {
     setNlInput('');
   };
 
+  // 공통 입력 필드 설정
+  const inputFields = [
+    { id: 'title', label: '제목', type: 'text', placeholder: '제목을 입력하세요' },
+    { id: 'startTime', label: '시작 시간', type: 'datetime-local' },
+    { id: 'endTime', label: '종료 시간', type: 'datetime-local' },
+    { id: 'description', label: '설명', type: 'textarea', placeholder: '선택 사항: 자세한 설명을 입력하세요', required: false },
+  ];
+
+  const renderFormField = ({ id, label, type, placeholder, required = true }) => (
+    <FormGroup key={id} label={label} id={id}>
+      {type === 'textarea' ? (
+        <textarea
+          id={id}
+          {...register(id, required && { required: `${label}을(를) 입력하세요.` })}
+          placeholder={placeholder}
+        />
+      ) : (
+        <input
+          id={id}
+          type={type}
+          {...register(id, required && { required: `${label}을(를) 입력하세요.` })}
+          placeholder={placeholder}
+        />
+      )}
+      {errors[id] && <span className={styles.error}>{errors[id].message}</span>}
+    </FormGroup>
+  );
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.eventForm}>
       <div className={styles.toggleContainer}>
         <button type="button" onClick={toggleMode} className={styles.toggleButton}>
-          <MessageSquare size={16} style={{ marginRight: '0.5rem' }} />
+          <Pencil size={16} style={{ marginRight: '0.5rem' }} />
           {isNLMode ? '일반 입력 모드' : '자연어 입력 모드'}
         </button>
       </div>
@@ -84,46 +114,13 @@ export default function EventForm({ addEvent }) {
         </>
       ) : (
         <>
-          <FormGroup label="제목" id="title">
-            <input
-              id="title"
-              type="text"
-              {...register('title', { required: '제목을 입력하세요.' })}
-              placeholder="제목을 입력하세요"
-            />
-            {errors.title && <span className={styles.error}>{errors.title.message}</span>}
-          </FormGroup>
-          <FormGroup label="카테고리" id="category">
-            <input
-              id="category"
-              type="text"
-              {...register('category', { required: '카테고리를 입력하세요.' })}
-              placeholder="예: 운동, 식사 등"
+          {inputFields.map(renderFormField)}
+          <FormGroup label="카테고리">
+            <CategorySelector
+              value={watch('category')}
+              onChange={(value) => setValue('category', value, { shouldValidate: true })}
             />
             {errors.category && <span className={styles.error}>{errors.category.message}</span>}
-          </FormGroup>
-          <FormGroup label="시작 시간" id="startTime">
-            <input
-              id="startTime"
-              type="datetime-local"
-              {...register('startTime', { required: '시작 시간을 입력하세요.' })}
-            />
-            {errors.startTime && <span className={styles.error}>{errors.startTime.message}</span>}
-          </FormGroup>
-          <FormGroup label="종료 시간" id="endTime">
-            <input
-              id="endTime"
-              type="datetime-local"
-              {...register('endTime', { required: '종료 시간을 입력하세요.' })}
-            />
-            {errors.endTime && <span className={styles.error}>{errors.endTime.message}</span>}
-          </FormGroup>
-          <FormGroup label="설명" id="description">
-            <textarea
-              id="description"
-              {...register('description')}
-              placeholder="선택 사항: 자세한 설명을 입력하세요"
-            />
           </FormGroup>
           <FormGroup label="감정 선택">
             <MoodSelector

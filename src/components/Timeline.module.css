@@ -1,76 +1,96 @@
 /* src/components/Timeline.module.css */
 .timelineContainer {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   position: relative;
-  padding-left: 40px;
-  margin: 2rem 0;
+  padding-left: 1rem;
 }
 
-/* 수직 타임라인 선 */
-.timelineLine {
+.timelineContainer:before {
+  content: "";
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: 20px;
-  width: 2px;
-  background-color: var(--primary-color);
-  opacity: 0.3;
+  left: 1rem;
+  width: 1px;
+  height: 100%;
+  background: #ddd;
 }
 
-/* 각 타임라인 아이템 */
 .timelineItem {
   position: relative;
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 아이콘 원형: 선 위에 배치 */
-.iconWrapper {
-  position: absolute;
-  left: 8px;
-  background-color: var(--bg-color);
-  border: 2px solid var(--primary-color);
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.content {
+  background: #f7f9fc;
+  padding: 0.8rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 한 줄로 표시할 메인 라인 (시간, 제목, 카테고리) */
+.mainLine {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.time {
+  font-size: 1rem;
+  color: var(--primary-color);
+  white-space: nowrap;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-right: auto;
+}
+
+.category, .mood {
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* 이벤트 내용 컨테이너 */
-.content {
-  margin-left: 40px;
-  padding: 0.5rem 1rem;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  background-color: var(--bg-color);
-}
-
-/* 시간 정보 */
-.time {
-  font-size: 0.9rem;
-  color: var(--primary-color);
-}
-
-/* 제목 */
-.title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 0.25rem;
-  color: var(--text-color);
-}
-
-/* 카테고리 */
-.category {
-  font-size: 1rem;
-  margin-top: 0.25rem;
   color: #666;
+  background-color: var(--secondary-color);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
-/* 설명 */
 .description {
   font-size: 0.9rem;
   margin-top: 0.25rem;
   color: #777;
+}
+
+/* 하이라이트 스타일 */
+.timelineItem.highlight .timelineDot {
+  background: #ff9800;
+}
+
+.timelineItem.highlight .content {
+  background: #fff4e5;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
