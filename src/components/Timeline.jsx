@@ -10,30 +10,27 @@ export default function Timeline({ events }) {
   );
 
   return (
-    <div className={styles.timeline}>
-      <h2>기록 타임라인</h2>
-      {sortedEvents.length === 0 ? (
-        <p>기록이 없습니다. 새 기록을 추가해보세요.</p>
-      ) : (
-        <ul className={styles.eventList}>
-          {sortedEvents.map((event) => (
-            <li key={event.id} className={styles.eventItem}>
-              <div className={styles.eventHeader}>
-                <strong>{event.title}</strong>
-                {event.mood && <span className={styles.eventMood}>{event.mood}</span>}
-              </div>
-              <small>{event.category}</small>
-              <br />
-              <span className={styles.eventTime}>
-                <Clock size={16} className={styles.clockIcon} />{' '}
-                {new Date(event.startTime).toLocaleTimeString()} ~{' '}
-                {new Date(event.endTime).toLocaleTimeString()}
-              </span>
-              <p>{event.description}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className={styles.timelineContainer}>
+      {/* 수직 타임라인 선 */}
+      <div className={styles.timelineLine}></div>
+      {sortedEvents.map((event) => (
+        <div key={event.id} className={styles.timelineItem}>
+          <div className={styles.iconWrapper}>
+            <Clock size={18} />
+          </div>
+          <div className={styles.content}>
+            <div className={styles.time}>
+              {new Date(event.startTime).toLocaleTimeString()} -{' '}
+              {new Date(event.endTime).toLocaleTimeString()}
+            </div>
+            <div className={styles.title}>{event.title}</div>
+            <div className={styles.category}>{event.category}</div>
+            {event.description && (
+              <div className={styles.description}>{event.description}</div>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

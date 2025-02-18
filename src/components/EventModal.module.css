@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .modalContent {
@@ -19,6 +20,7 @@
   width: 90%;
   max-width: 400px;
   position: relative;
+  animation: slideUp 0.3s ease-out;
 }
 
 .closeButton {
@@ -28,4 +30,26 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 슬라이드 업 애니메이션 */
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
