@@ -18,12 +18,9 @@
 }
 
 .categoryButton span {
-  font-size: 0.9rem;
-  font-weight: 600;
   margin-top: 0.1rem;
   color: var(--text-color);
   transition: color 0.3s ease;
-  font-family: var(--font-family);
 }
 
 .categoryButton:hover {
@@ -38,4 +35,10 @@
   .categoryButton span {
     color: var(--text-color-dark, #e1e1e1);
   }
+}
+
+.categoryLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-family: var(--font-family);
 } 

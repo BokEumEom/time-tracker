@@ -3,7 +3,7 @@ import React from 'react';
 import { Smile, Meh, Frown, Heart, Angry, Laugh, Annoyed, Coffee, PartyPopper, BatteryWarning, Pill, Snail, Headphones, Moon } from 'lucide-react';
 import styles from './MoodSelector.module.css';
 
-const DEFAULT_ICON_SIZE = 18;
+const DEFAULT_ICON_SIZE = 16;
 
 const createMoods = (iconSize = DEFAULT_ICON_SIZE) => [
   { value: 'joy', label: '기쁨', icon: <Smile size={iconSize} /> },

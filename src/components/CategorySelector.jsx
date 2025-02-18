@@ -59,8 +59,8 @@ export default function CategorySelector({ value, onChange }) {
           onClick={() => onChange(category.value)}
           title={category.label}
         >
-          {React.createElement(category.icon, { size: 18 })}
-          <span style={{ fontSize: '0.7rem' }}>{category.label}</span>
+          {React.createElement(category.icon, { size: 16 })}
+          <span className={styles.categoryLabel}>{category.label}</span>
         </button>
       ))}
     </div>
