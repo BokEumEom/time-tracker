@@ -30,6 +30,26 @@ main {
   margin-top: 2rem;
 }
 
+/* 모바일 최적화 */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  nav {
+    margin-top: 0.5rem;
+  }
+
+  .nav-link {
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  main {
+    margin-top: 1rem;
+  }
+}
+
 /* 다크 모드: 그림자 제거 */
 @media (prefers-color-scheme: dark) {
   .container {

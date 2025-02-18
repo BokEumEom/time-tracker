@@ -21,6 +21,10 @@
   max-width: 400px;
   position: relative;
   animation: slideUp 0.3s ease-out;
+  /* 모바일에서의 최적화 */
+  max-height: 80vh; /* 뷰포트 높이의 80%로 제한 */
+  overflow-y: auto; /* 내용이 많을 경우 스크롤 가능하도록 */
+  -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
 }
 
 .closeButton {
@@ -30,6 +34,14 @@
   background: none;
   border: none;
   cursor: pointer;
+  /* 모바일에서 더 나은 터치 영역 */
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  min-width: 44px; /* iOS 권장 최소 터치 영역 */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 페이드 인 애니메이션 */
