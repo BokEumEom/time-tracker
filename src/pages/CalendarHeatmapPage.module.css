@@ -1,0 +1,8 @@
+/* src/pages/CalendarHeatmapPage.module.css */
+.pageContainer {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-color);
+  }

@@ -1,8 +1,38 @@
-# React + Vite
+# 시간 기록 타임라인
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 앱 소개
+**시간 기록 타임라인** 앱은 사용자가 하루 또는 일정 기간 동안의 활동과 감정을 기록하고, 이를 시각적으로 파악할 수 있도록 돕는 웹 애플리케이션입니다.  
+앱을 통해 사용자는 자신이 언제, 어떤 활동을 했는지, 그리고 그때 느낀 감정을 기록하고, 이를 타임라인, 통계 페이지, 캘린더 히트맵 등 다양한 방식으로 시각화하여 한눈에 확인할 수 있습니다.
 
-Currently, two official plugins are available:
+## 주요 기능
+- **활동 기록 추가**  
+  - 제목, 카테고리, 시작 시간, 종료 시간, 설명, 감정 선택 등을 통해 상세한 이벤트 기록을 추가할 수 있습니다.
+  - React Hook Form을 활용해 쉽고 빠르게 입력할 수 있으며, 인라인 검증으로 사용자 경험을 향상시킵니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **타임라인 뷰**  
+  - 기록된 이벤트들을 시간 순서대로 나열하여 사용자가 자신의 하루 일정을 시각적으로 확인할 수 있습니다.
+
+- **통계 페이지**  
+  - 총 기록 수, 총 활동 시간, 카테고리 및 감정별 기록 등의 통계 정보를 제공하여, 사용자가 자신의 활동 패턴을 분석할 수 있습니다.
+
+- **캘린더 히트맵**  
+  - 각 날짜별 기록량을 색상 강도로 표현한 캘린더 히트맵을 통해, 어느 날 활동이 많았는지 한눈에 파악할 수 있습니다.
+
+- **모바일 최적화**  
+  - 반응형 디자인을 적용하여, 데스크탑은 물론 모바일 환경에서도 편리하게 사용할 수 있습니다.
+
+## 기술 스택
+- **React**: 사용자 인터페이스 구축
+- **Vite**: 빠른 개발 환경 및 번들러
+- **React Router**: 페이지 라우팅
+- **React Hook Form**: 폼 상태 관리 및 검증
+- **CSS Modules**: 컴포넌트 단위 스타일링
+- **date-fns**: 날짜 처리 및 포맷팅
+- **lucide-react**: 아이콘 제공
+- **LocalStorage**: 클라이언트 사이드 데이터 저장
+
+## 설치 및 실행 방법
+1. **레포지토리 클론**
+   ```bash
+   git clone https://github.com/your-username/time-tracker.git
+   cd time-tracker
