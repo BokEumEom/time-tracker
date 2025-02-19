@@ -1,8 +1,21 @@
 /* src/pages/Stats.module.css */
 .statsContainer {
-  max-width: 600px;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
   background-color: var(--bg-color);
   border-radius: 8px;
   color: var(--text-color);
-  padding: 1rem;
+}
+
+.chartBreakdownContainer {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .chartBreakdownContainer {
+    grid-template-columns: 1fr 1fr;
+  }
 }

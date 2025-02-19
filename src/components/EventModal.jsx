@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { CircleX } from 'lucide-react';
 import styles from './EventModal.module.css';
-import EventForm from './EventForm';
+import EventForm from './form/EventForm';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function EventModal({ isOpen, onClose, addEvent }) {

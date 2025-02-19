@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { Pencil } from 'lucide-react';
 import FormGroup from './FormGroup';
 import styles from './EventForm.module.css';
-import { parseNaturalLanguageInput } from '../utils/naturalLanguageParser';
+import { parseNaturalLanguageInput } from '../../utils/naturalLanguageParser';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEventForm } from '../hooks/useEventForm';
+import { useEventForm } from '../../hooks/useEventForm';
 import NaturalLanguageForm from './NaturalLanguageForm';
 import StandardForm from './StandardForm';
 

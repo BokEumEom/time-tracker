@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Timeline.module.css';
 import { format } from 'date-fns';
-import Modal from './Modal';
+import Modal from './common/Modal';
 import { categoryIcons, moodIcons, weatherIcons, DefaultIcon } from '../constants/TimelineIcons';
 
 export default function Timeline({ events }) {

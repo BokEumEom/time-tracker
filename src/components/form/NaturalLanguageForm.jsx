@@ -1,6 +1,6 @@
 import React from 'react';
 import FormGroup from './FormGroup';
-import Button from './Button';
+import Button from '../common/Button';
 
 export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
   return (

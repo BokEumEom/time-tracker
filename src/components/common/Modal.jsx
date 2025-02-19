@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Modal.module.css';
 import { format } from 'date-fns';
-import { categoryIcons, moodIcons, weatherIcons, DefaultIcon } from '../constants/TimelineIcons';
+import { categoryIcons, moodIcons, weatherIcons, DefaultIcon } from '../../constants/TimelineIcons';
 
 // 부드러운 오픈 애니메이션을 위한 변수
 const modalVariants = {

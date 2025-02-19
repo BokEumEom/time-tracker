@@ -1,10 +1,10 @@
 import React from 'react';
 import FormGroup from './FormGroup';
-import CategorySelector from './CategorySelector';
-import MoodSelector from './MoodSelector';
+import CategorySelector from '../Selector/CategorySelector';
+import MoodSelector from '../Selector/MoodSelector';
 import styles from './StandardForm.module.css';
-import Button from './Button';
-import WeatherSelector from './WeatherSelector';
+import Button from '../common/Button';
+import WeatherSelector from '../Selector/WeatherSelector';
 
 export default function StandardForm({ inputFields, renderFormField, watch, setValue, errors }) {
   return (

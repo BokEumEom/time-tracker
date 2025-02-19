@@ -19,19 +19,9 @@ function CalendarHeatmap() {
     const events = JSON.parse(localStorage.getItem('events')) || [];
     const counts = {};
     events.forEach((event) => {
-      const date = new Date(event.startTime);
-      // 날짜 변환 과정 검증을 위한 로그
-      console.log('Original date:', date);
-      console.log('Original ISO:', date.toISOString());
-      
-      // 타임존 오프셋을 더해서 보정 (이전에는 빼고 있었음)
-      const localDate = new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
-      console.log('Converted date:', localDate);
-      console.log('Converted ISO:', localDate.toISOString());
-      
-      const dateStr = format(localDate, 'yyyy-MM-dd');
-      console.log('Final dateStr:', dateStr);
-      
+      // startTime은 이미 ISO 문자열 형태로 저장되어 있으므로, 
+      // 단순히 날짜 부분만 추출하여 사용
+      const dateStr = event.startTime.split('T')[0];
       counts[dateStr] = (counts[dateStr] || 0) + 1;
     });
     setEventCounts(counts);
@@ -83,14 +73,15 @@ function CalendarHeatmap() {
       {calendarData.map((week, i) => (
         <div key={i} className={styles.weekRow}>
           {week.map((day, j) => {
-            const dateStr = day.toISOString().split('T')[0];
+            // 날짜를 YYYY-MM-DD 형식으로 통일
+            const dateStr = format(day, 'yyyy-MM-dd');
             const count = eventCounts[dateStr] || 0;
             return (
               <div
                 key={j}
                 className={styles.dayCell}
                 style={{ backgroundColor: getColorForCount(count) }}
-                title={`${format(day, 'yyyy-MM-dd')}: ${count} event(s)`}
+                title={`${dateStr}: ${count} event(s)`}
               >
                 {format(day, 'd')}
               </div>
