@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Timeline.module.css';
 import { format } from 'date-fns';
 import Modal from './Modal';
-import { categoryIcons, moodIcons, DefaultIcon } from '../constants/TimelineIcons';
+import { categoryIcons, moodIcons, weatherIcons, DefaultIcon } from '../constants/TimelineIcons';
 
 export default function Timeline({ events }) {
   const [selectedEvent, setSelectedEvent] = React.useState(null);
@@ -69,6 +69,13 @@ export default function Timeline({ events }) {
                       {moodIcons[event.mood] ? 
                         React.createElement(moodIcons[event.mood], { size: 18, 'aria-label': event.mood }) : 
                         <DefaultIcon aria-label="Unknown Mood" />}
+                    </div>
+                  )}
+                  {event.weather && (
+                    <div className={styles.weather}>
+                      {weatherIcons[event.weather] ? 
+                        React.createElement(weatherIcons[event.weather], { size: 18, 'aria-label': event.weather }) : 
+                        <DefaultIcon aria-label="Unknown Weather" />}
                     </div>
                   )}
                 </div>

@@ -3,7 +3,31 @@ import {
   Users, Coffee, Palette, ShoppingBag, Home, Heart, Book, Music, 
   Camera, Plane, Car, Phone, Baby, Film, Shirt, Trash2,
   Smile, Meh, Frown, Angry, Laugh, Annoyed, PartyPopper, 
-  BatteryWarning, Pill, Snail, Headphones, Moon, CircleHelp
+  BatteryWarning, Pill, Snail, Headphones, Moon, CircleHelp,
+  Sun,
+  Cloud,
+  CloudRain,
+  CloudSnow,
+  CloudLightning,
+  CloudFog,
+  CloudDrizzle,
+  Cloudy,
+  Sunrise,
+  Sunset,
+  Wind,
+  Thermometer,
+  Droplets,
+  Gauge,
+  Snowflake,
+  CloudHail,
+  CloudMoon,
+  MoonStar,
+  Rainbow,
+  Umbrella,
+  ThermometerSnowflake,
+  ThermometerSun,
+  Tornado,
+  Waves
 } from 'lucide-react';
 
 // 카테고리 아이콘 매핑
@@ -47,6 +71,35 @@ export const moodIcons = {
   thinking: Snail,
   flutter: Headphones,
   sleepy: Moon,
+};
+
+// 날씨 아이콘 매핑 추가
+export const weatherIcons = {
+  sunny: Sun,
+  moon: Moon,
+  moonStar: MoonStar,
+  cloudMoon: CloudMoon,
+  sunrise: Sunrise,
+  sunset: Sunset,
+  cloudy: Cloud,
+  veryCloudy: Cloudy,
+  drizzle: CloudDrizzle,
+  rainy: CloudRain,
+  hail: CloudHail,
+  snowy: CloudSnow,
+  storm: CloudLightning,
+  foggy: CloudFog,
+  windy: Wind,
+  tornado: Tornado,
+  veryHot: ThermometerSun,
+  hot: Thermometer,
+  veryCold: ThermometerSnowflake,
+  cold: Snowflake,
+  humid: Droplets,
+  rainbow: Rainbow,
+  umbrella: Umbrella,
+  waves: Waves,
+  pressure: Gauge
 };
 
 // 기본 아이콘

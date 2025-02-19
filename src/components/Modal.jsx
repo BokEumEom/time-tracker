@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Modal.module.css';
 import { format } from 'date-fns';
-import { categoryIcons, moodIcons, DefaultIcon } from '../constants/TimelineIcons';
+import { categoryIcons, moodIcons, weatherIcons, DefaultIcon } from '../constants/TimelineIcons';
 
 // 부드러운 오픈 애니메이션을 위한 변수
 const modalVariants = {
@@ -153,6 +153,17 @@ const Modal = ({ event, onClose, position }) => {
               >
                 {React.createElement(moodIcons[event.mood] || DefaultIcon, { size: 24 })}
                 <span>{event.mood}</span>
+              </motion.div>
+            )}
+            {event.weather && (
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'tween', ease: 'easeOut', duration: 0.3 }}
+                className={styles.iconWrapper}
+              >
+                {React.createElement(weatherIcons[event.weather] || DefaultIcon, { size: 24 })}
+                <span>{event.weather}</span>
               </motion.div>
             )}
           </div>

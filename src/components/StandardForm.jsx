@@ -4,6 +4,7 @@ import CategorySelector from './CategorySelector';
 import MoodSelector from './MoodSelector';
 import styles from './StandardForm.module.css';
 import Button from './Button';
+import WeatherSelector from './WeatherSelector';
 
 export default function StandardForm({ inputFields, renderFormField, watch, setValue, errors }) {
   return (
@@ -22,6 +23,13 @@ export default function StandardForm({ inputFields, renderFormField, watch, setV
           onChange={(value) => setValue('mood', value, { shouldValidate: true })}
         />
         {errors.mood && <span className={styles.error}>{errors.mood.message}</span>}
+      </FormGroup>
+      <FormGroup label="날씨 선택">
+        <WeatherSelector
+          value={watch('weather')}
+          onChange={(value) => setValue('weather', value, { shouldValidate: true })}
+        />
+        {errors.weather && <span className={styles.error}>{errors.weather.message}</span>}
       </FormGroup>
       <Button type="submit">추가</Button>
     </>

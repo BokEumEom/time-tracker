@@ -62,15 +62,13 @@
   margin-right: auto;
 }
 
-.category, .mood {
+.category, .mood, .weather {
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #666;
-  background-color: var(--secondary-color);
   padding: 0.2rem 0.4rem;
-  border-radius: 4px;
   white-space: nowrap;
 }
 
@@ -165,8 +163,4 @@
     max-height: 0;
     transform: translateY(-10px);
   }
-}
-
-.content.expanded {
-  background: #f0f3f9;
 }
