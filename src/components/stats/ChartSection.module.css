@@ -5,7 +5,6 @@
 
 .chartColumn {
   flex: 1;
-  padding: 0 0.5rem;
 }
 
 .chartHeading {
@@ -26,10 +25,6 @@
 @media (max-width: 600px) {
   .chartSection {
     flex-direction: column;
-  }
-  
-  .chartColumn {
-    padding: 0.5rem;
   }
 
   .chart {
