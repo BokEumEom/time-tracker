@@ -1,4 +1,4 @@
-import { format, add, set } from 'date-fns';
+import { parseISO, format, add, set } from 'date-fns';
 import { findCategory, findMood } from '../constants/KeywordMappings';
 
 const TIME_KEYWORDS = {
@@ -116,24 +116,49 @@ function parseTime(timeStr) {
 }
 
 export function parseNaturalLanguageInput(input) {
-  try {
-    // 입력 예시: "운동, 2025-02-20T07:00, 2025-02-20T08:00, 아침 조깅 시작, 신남"
-    const [title, startTime, endTime, description, ...rest] = input.split(',').map(s => s.trim());
-    
-    // 전체 입력 텍스트에서 카테고리와 감정 찾기
-    const fullText = input.toLowerCase();
-    const category = findCategory(fullText);
-    const mood = findMood(fullText);
-
-    return {
-      title,
-      startTime,
-      endTime,
-      description,
-      category,
-      mood
-    };
-  } catch (error) {
-    throw new Error('입력 형식이 올바르지 않습니다. "제목, 시작시간, 종료시간, 설명, 기타정보" 형식으로 입력해주세요.');
+  const parts = input.split(',').map(p => p.trim());
+  if (parts.length < 5) {
+    throw new Error('형식이 올바르지 않습니다. (최소: 제목, 시작시간, 종료시간, 카테고리, 감정)');
   }
+
+  const [title, startTimeStr, endTimeStr, category, mood, description = ''] = parts;
+
+  const startTime = parseTime(startTimeStr);
+  let endTime;
+
+  // 종료 시간이 duration 형식인 경우
+  const isDuration = Object.keys(DURATION_PATTERNS).some(pattern => endTimeStr.includes(pattern));
+  if (isDuration) {
+    const baseDate = parseISO(startTime);
+    endTime = parseDurationTime(endTimeStr, baseDate);
+    if (!endTime) {
+      throw new Error('올바르지 않은 기간 형식입니다.');
+    }
+  } else {
+    endTime = parseTime(endTimeStr);
+  }
+
+  // 시간 순서 검사
+  if (new Date(endTime) < new Date(startTime)) {
+    throw new Error('종료 시간은 시작 시간 이후여야 합니다.');
+  }
+
+  // 카테고리 및 감정 키워드 매핑
+  const normalizedCategory = findCategory(category);
+  if (!normalizedCategory) {
+    throw new Error(`올바르지 않은 카테고리입니다: ${category}`);
+  }
+  const normalizedMood = findMood(mood);
+  if (!normalizedMood) {
+    throw new Error(`올바르지 않은 감정입니다: ${mood}`);
+  }
+
+  return {
+    title,
+    startTime,
+    endTime,
+    category: normalizedCategory,
+    mood: normalizedMood,
+    description
+  };
 }
