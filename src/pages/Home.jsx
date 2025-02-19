@@ -4,6 +4,7 @@ import Timeline from '../components/Timeline';
 import EventModal from '../components/EventModal';
 import { Plus } from 'lucide-react';
 import styles from './Home.module.css';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -27,9 +28,14 @@ export default function Home() {
   return (
     <div className={styles.homeContainer}>
       <Timeline events={events} />
-      <button className={styles.fab} onClick={() => setIsModalOpen(true)}>
+      <motion.button 
+        className={styles.fab}
+        onClick={() => setIsModalOpen(true)}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
         <Plus size={24} />
-      </button>
+      </motion.button>
       <EventModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
