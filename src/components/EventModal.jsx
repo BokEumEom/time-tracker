@@ -20,7 +20,11 @@ export default function EventModal({ isOpen, onClose, addEvent }) {
             initial={{ y: '100%', opacity: 0 }}
             animate={{ y: '0%', opacity: 1 }}
             exit={{ y: '100%', opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 120 }}
+            transition={{ 
+              type: "tween", 
+              ease: "easeOut",
+              duration: 0.3
+            }}
           >
             <button className={styles.closeButton} onClick={onClose}>
               <X size={24} />

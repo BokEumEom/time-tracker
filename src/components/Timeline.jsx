@@ -39,9 +39,8 @@ export default function Timeline({ events }) {
             whileHover={{ scale: 1.02 }}
             className={styles.timelineItem}
             onClick={() => setSelectedEvent(event)}
-            // 추가적인 접근성을 위해 onKeyDown 이벤트를 추가할 수 있습니다.
             onKeyDown={(e) => e.key === 'Enter' && setSelectedEvent(event)}
-            tabIndex={0} // focus 가능하게 설정
+            tabIndex={0}
           >
             <motion.div className={styles.content}>
               <div className={styles.mainLine}>
@@ -65,7 +64,13 @@ export default function Timeline({ events }) {
                 )}
               </div>
               {event.description && (
-                <div className={`${styles.description} ${expandedIds.has(event.id) ? styles.expanded : ''}`}>
+                <div 
+                  className={`${styles.description} ${expandedIds.has(event.id) ? styles.expanded : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 이벤트 버블링 방지
+                    toggleDescription(event.id);
+                  }}
+                >
                   {event.description}
                 </div>
               )}

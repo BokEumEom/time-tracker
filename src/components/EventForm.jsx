@@ -1,54 +1,30 @@
 // src/components/EventForm.jsx
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { Pencil } from 'lucide-react';
 import FormGroup from './FormGroup';
-import MoodSelector from './MoodSelector';
-import CategorySelector from './CategorySelector';
 import styles from './EventForm.module.css';
 import { parseNaturalLanguageInput } from '../utils/naturalLanguageParser';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEventForm } from '../hooks/useEventForm';
+import NaturalLanguageForm from './NaturalLanguageForm';
+import StandardForm from './StandardForm';
 
 export default function EventForm({ addEvent }) {
-  const { 
-    register, 
-    handleSubmit, 
-    reset, 
-    setValue, 
-    watch, 
-    formState: { errors } 
-  } = useForm({
-    defaultValues: {
-      title: '',
-      category: '',
-      startTime: '',
-      endTime: '',
-      description: '',
-      mood: '',
-    },
-  });
-  const [isNLMode, setIsNLMode] = useState(false);
-  const [nlInput, setNlInput] = useState('');
+  const {
+    isNLMode,
+    nlInput,
+    setNlInput,
+    toggleMode,
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    watch,
+    errors,
+    registerFields
+  } = useEventForm(addEvent);
 
-  useEffect(() => {
-    register('mood', { required: '감정을 선택하세요.' });
-    register('category', { required: '카테고리를 선택하세요.' });
-    register('startTime', {
-      required: '시작 시간을 입력하세요.',
-      validate: (value) => {
-        const endTime = watch('endTime');
-        return endTime && new Date(value) < new Date(endTime) || '시작 시간이 종료 시간보다 앞서야 합니다.';
-      }
-    });
-    register('endTime', {
-      required: '종료 시간을 입력하세요.',
-      validate: (value) => {
-        const startTime = watch('startTime');
-        return startTime && new Date(value) > new Date(startTime) || '종료 시간이 시작 시간보다 뒤에 있어야 합니다.';
-      }
-    });
-  }, [register, watch]);
-
-  const toggleMode = () => setIsNLMode((prev) => !prev);
+  useEffect(registerFields, [registerFields]);
 
   const onSubmit = (data) => {
     addEvent({ id: Date.now(), ...data });
@@ -106,43 +82,36 @@ export default function EventForm({ addEvent }) {
           {isNLMode ? '일반 입력 모드' : '자연어 입력 모드'}
         </button>
       </div>
-      {isNLMode ? (
-        <>
-          <FormGroup label="자연어 기록 입력" id="nlInput">
-            <textarea
-              id="nlInput"
-              value={nlInput}
-              onChange={(e) => setNlInput(e.target.value)}
-              placeholder="예: 운동, 2025-02-20T07:00, 2025-02-20T08:00, 운동, joy, 아침 조깅"
-              required
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={isNLMode ? 'nl' : 'normal'}
+          initial={{ opacity: 0, height: 0, scale: isNLMode ? 0.95 : 1 }}
+          animate={{ opacity: 1, height: "auto", scale: 1 }}
+          exit={{ opacity: 0, height: 0, scale: isNLMode ? 1 : 0.95 }}
+          transition={{ 
+            duration: 0.3,
+            ease: "easeInOut",
+            height: { duration: 0.4 }
+          }}
+          className={styles.formContent}
+        >
+          {isNLMode ? (
+            <NaturalLanguageForm
+              nlInput={nlInput}
+              setNlInput={setNlInput}
+              onSubmit={handleNLSubmit}
             />
-          </FormGroup>
-          <button type="button" onClick={handleNLSubmit} className={styles.submitButton}>
-            추가
-          </button>
-        </>
-      ) : (
-        <>
-          {inputFields.map(renderFormField)}
-          <FormGroup label="카테고리">
-            <CategorySelector
-              value={watch('category')}
-              onChange={(value) => setValue('category', value, { shouldValidate: true })}
+          ) : (
+            <StandardForm
+              inputFields={inputFields}
+              renderFormField={renderFormField}
+              watch={watch}
+              setValue={setValue}
+              errors={errors}
             />
-            {errors.category && <span id="category-error" className={styles.error}>{errors.category.message}</span>}
-          </FormGroup>
-          <FormGroup label="감정 선택">
-            <MoodSelector
-              value={watch('mood')}
-              onChange={(value) => setValue('mood', value, { shouldValidate: true })}
-            />
-            {errors.mood && <span id="mood-error" className={styles.error}>{errors.mood.message}</span>}
-          </FormGroup>
-          <button type="submit" className={styles.submitButton}>
-            추가
-          </button>
-        </>
-      )}
+          )}
+        </motion.div>
+      </AnimatePresence>
     </form>
   );
 }
