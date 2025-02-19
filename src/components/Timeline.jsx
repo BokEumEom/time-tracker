@@ -22,61 +22,71 @@ export default function Timeline({ events }) {
     });
   };
 
-  // 시작 시간 기준으로 정렬
-  const sortedEvents = [...events].sort(
-    (a, b) => new Date(a.startTime) - new Date(b.startTime)
-  );
+  // 시작 시간 기준으로 정렬하되, 유효한 날짜만 처리
+  const sortedEvents = [...events]
+    .filter(event => {
+      const startDate = new Date(event.startTime);
+      const endDate = new Date(event.endTime);
+      return !isNaN(startDate) && !isNaN(endDate);
+    })
+    .sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
 
   return (
     <>
       <motion.div className={styles.timelineContainer}>
         <div className={styles.timelineLine}></div>
-        {sortedEvents.map((event) => (
-          <motion.div
-            key={event.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            whileHover={{ scale: 1.02 }}
-            className={styles.timelineItem}
-            onClick={() => setSelectedEvent(event)}
-            onKeyDown={(e) => e.key === 'Enter' && setSelectedEvent(event)}
-            tabIndex={0}
-          >
-            <motion.div className={styles.content}>
-              <div className={styles.mainLine}>
-                <div className={styles.time}>
-                  {format(new Date(event.startTime), 'HH:mm')} - 
-                  {format(new Date(event.endTime), 'HH:mm')}
+        {sortedEvents.map((event) => {
+          // 날짜가 유효한지 확인
+          const startDate = new Date(event.startTime);
+          const endDate = new Date(event.endTime);
+          
+          return (
+            <motion.div
+              key={event.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02 }}
+              className={styles.timelineItem}
+              onClick={() => setSelectedEvent(event)}
+              onKeyDown={(e) => e.key === 'Enter' && setSelectedEvent(event)}
+              tabIndex={0}
+            >
+              <motion.div className={styles.content}>
+                <div className={styles.mainLine}>
+                  <div className={styles.time}>
+                    {format(startDate, 'HH:mm')} - 
+                    {format(endDate, 'HH:mm')}
+                  </div>
+                  <div className={styles.title}>{event.title}</div>
+                  <div className={styles.category}>
+                    {event.category && 
+                      (categoryIcons[event.category] ? 
+                        React.createElement(categoryIcons[event.category], { size: 18, 'aria-label': event.category }) : 
+                        <DefaultIcon aria-label="Unknown Category" />)}
+                  </div>
+                  {event.mood && (
+                    <div className={styles.mood}>
+                      {moodIcons[event.mood] ? 
+                        React.createElement(moodIcons[event.mood], { size: 18, 'aria-label': event.mood }) : 
+                        <DefaultIcon aria-label="Unknown Mood" />}
+                    </div>
+                  )}
                 </div>
-                <div className={styles.title}>{event.title}</div>
-                <div className={styles.category}>
-                  {event.category && 
-                    (categoryIcons[event.category] ? 
-                      React.createElement(categoryIcons[event.category], { size: 18, 'aria-label': event.category }) : 
-                      <DefaultIcon aria-label="Unknown Category" />)}
-                </div>
-                {event.mood && (
-                  <div className={styles.mood}>
-                    {moodIcons[event.mood] ? 
-                      React.createElement(moodIcons[event.mood], { size: 18, 'aria-label': event.mood }) : 
-                      <DefaultIcon aria-label="Unknown Mood" />}
+                {event.description && (
+                  <div 
+                    className={`${styles.description} ${expandedIds.has(event.id) ? styles.expanded : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 이벤트 버블링 방지
+                      toggleDescription(event.id);
+                    }}
+                  >
+                    {event.description}
                   </div>
                 )}
-              </div>
-              {event.description && (
-                <div 
-                  className={`${styles.description} ${expandedIds.has(event.id) ? styles.expanded : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation(); // 이벤트 버블링 방지
-                    toggleDescription(event.id);
-                  }}
-                >
-                  {event.description}
-                </div>
-              )}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
+          );
+        })}
       </motion.div>
 
       <AnimatePresence>

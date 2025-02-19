@@ -10,9 +10,12 @@ export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
           id="nlInput"
           value={nlInput}
           onChange={(e) => setNlInput(e.target.value)}
-          placeholder="예: 운동, 2025-02-20T07:00, 2025-02-20T08:00, 운동, joy, 아침 조깅"
+          placeholder="예: 아침 운동, 오전 7시, 1시간, 운동, 상쾌, 공원에서 조깅하기"
           required
         />
+        <small className="form-text text-muted">
+          형식: 제목, 시작시간, 종료시간(또는 기간), 카테고리, 감정, 설명(선택사항)
+        </small>
       </FormGroup>
       <Button onClick={onSubmit}>추가</Button>
     </>

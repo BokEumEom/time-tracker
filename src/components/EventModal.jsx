@@ -17,13 +17,15 @@ export default function EventModal({ isOpen, onClose, addEvent }) {
         >
           <motion.div 
             className={styles.modalContent}
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: '0%', opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
+            initial={{ y: '100vh', opacity: 0 }}
+            animate={{ y: '0vh', opacity: 1 }}
+            exit={{ y: '100vh', opacity: 0 }}
             transition={{ 
               type: "tween", 
               ease: "easeOut",
-              duration: 0.3
+              duration: 0.3,
+              stiffness: 100,
+              damping: 20
             }}
           >
             <button className={styles.closeButton} onClick={onClose}>

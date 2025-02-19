@@ -1,26 +1,18 @@
 /* src/pages/Home.module.css */
 .homeContainer {
   position: relative;
+  min-height: 100vh;
 }
 
-/* 플로팅 액션 버튼 (FAB) */
 .fab {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  background-color: #0070f3;
-  color: #fff;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary-color);
   border: none;
+  border-radius: 50%;
+  color: white;
+  padding: 15px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.fab:hover {
-  background-color: #0051a3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
