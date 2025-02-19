@@ -1,16 +1,14 @@
 import React, { useMemo } from 'react';
-import { Bar, Radar } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
 } from 'chart.js';
 import styles from './ChartSection.module.css';
 
@@ -19,9 +17,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend
@@ -52,7 +48,18 @@ function ChartSection({ events }) {
     return duration;
   }, [events]);
 
-  const data = {
+  // 감정 분포 계산
+  const moodCounts = useMemo(() => {
+    const counts = {};
+    events.forEach(event => {
+      if (event.mood) {
+        counts[event.mood] = (counts[event.mood] || 0) + 1;
+      }
+    });
+    return counts;
+  }, [events]);
+
+  const barData = {
     labels: Array.from({ length: 24 }, (_, i) => `${i}시`),
     datasets: [
       {
@@ -63,7 +70,7 @@ function ChartSection({ events }) {
     ],
   };
 
-  const options = {
+  const barOptions = {
     responsive: true,
     plugins: {
       legend: {
@@ -85,77 +92,71 @@ function ChartSection({ events }) {
     },
   };
 
-  // 카테고리 데이터
-  const categoryData = useMemo(() => {
-    const counts = {};
-    events.forEach(event => {
-      if (event.category) {
-        counts[event.category] = (counts[event.category] || 0) + 1;
-      }
-    });
-    return {
-      labels: Object.keys(counts),
-      datasets: [{
-        label: '카테고리별 분포',
-        data: Object.values(counts),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-      }]
-    };
-  }, [events]);
+  const pieData = {
+    labels: Object.keys(categoryDuration),
+    datasets: [
+      {
+        data: Object.values(categoryDuration),
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+      },
+    ],
+  };
 
-  // 감정 데이터
-  const moodData = useMemo(() => {
-    const counts = {};
-    events.forEach(event => {
-      if (event.mood) {
-        counts[event.mood] = (counts[event.mood] || 0) + 1;
-      }
-    });
-    return {
-      labels: Object.keys(counts),
-      datasets: [{
-        label: '감정별 분포',
-        data: Object.values(counts),
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1,
-      }]
-    };
-  }, [events]);
-
-  const radarOptions = {
+  const pieOptions = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'right',
+      },
+      title: {
+        display: true,
+        text: '카테고리별 시간 투자',
       },
     },
-    scales: {
-      r: {
-        beginAtZero: true,
-      }
-    }
+  };
+
+  const moodData = {
+    labels: Object.keys(moodCounts),
+    datasets: [
+      {
+        data: Object.values(moodCounts),
+        backgroundColor: ['#90EE90', '#FF6347', '#4169E1', '#FFD700', '#DDA0DD'],
+      },
+    ],
+  };
+
+  const moodOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right',
+      },
+      title: {
+        display: true,
+        text: '감정 분포',
+      },
+    },
   };
 
   return (
     <div className={styles.chartSection}>
-      <div className={styles.chart}>
-        <Bar data={data} options={options} />
-      </div>
-      <div className={styles.radarCharts}>
-        <div className={styles.radarChart}>
-          <h3>카테고리 분포</h3>
-          <Radar data={categoryData} options={radarOptions} />
+      <div className={styles.chartColumn}>
+        <div className={styles.chart}>
+          <Bar data={barData} options={barOptions} aria-label="Hourly Activity Distribution" />
         </div>
-        <div className={styles.radarChart}>
-          <h3>감정 분포</h3>
-          <Radar data={moodData} options={radarOptions} />
+      </div>
+      <div className={styles.chartColumn}>
+        <div className={styles.pieChartsContainer}>
+          <div className={styles.chart}>
+            <Pie data={pieData} options={pieOptions} aria-label="Category Time Investment" />
+          </div>
+          <div className={styles.chart}>
+            <Pie data={moodData} options={moodOptions} aria-label="Mood Distribution" />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default ChartSection; 
+export default ChartSection;

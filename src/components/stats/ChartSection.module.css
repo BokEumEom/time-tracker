@@ -1,5 +1,11 @@
 .chartSection {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chartColumn {
+  flex: 1;
+  padding: 0 0.5rem;
 }
 
 .chartHeading {
@@ -9,5 +15,24 @@
 .chart {
   height: 300px;
   width: 100%;
-  padding: 0.5rem;
-} 
+}
+
+/* 새로운 2열 그리드 컨테이너: 두 개의 Pie 차트를 나란히 배치 */
+.pieChartsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 600px) {
+  .chartSection {
+    flex-direction: column;
+  }
+  
+  .chartColumn {
+    padding: 0.5rem;
+  }
+
+  .chart {
+    height: 200px;
+  }
+}
