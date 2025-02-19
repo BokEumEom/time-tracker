@@ -6,15 +6,16 @@ import FormGroup from './FormGroup';
 import MoodSelector from './MoodSelector';
 import CategorySelector from './CategorySelector';
 import styles from './EventForm.module.css';
+import { parseNaturalLanguageInput } from '../utils/naturalLanguageParser';
 
 export default function EventForm({ addEvent }) {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    watch,
-    formState: { errors },
+  const { 
+    register, 
+    handleSubmit, 
+    reset, 
+    setValue, 
+    watch, 
+    formState: { errors } 
   } = useForm({
     defaultValues: {
       title: '',
@@ -28,40 +29,44 @@ export default function EventForm({ addEvent }) {
   const [isNLMode, setIsNLMode] = useState(false);
   const [nlInput, setNlInput] = useState('');
 
-  // 커스텀 컴포넌트들을 위한 등록
   useEffect(() => {
     register('mood', { required: '감정을 선택하세요.' });
     register('category', { required: '카테고리를 선택하세요.' });
-  }, [register]);
+    register('startTime', {
+      required: '시작 시간을 입력하세요.',
+      validate: (value) => {
+        const endTime = watch('endTime');
+        return endTime && new Date(value) < new Date(endTime) || '시작 시간이 종료 시간보다 앞서야 합니다.';
+      }
+    });
+    register('endTime', {
+      required: '종료 시간을 입력하세요.',
+      validate: (value) => {
+        const startTime = watch('startTime');
+        return startTime && new Date(value) > new Date(startTime) || '종료 시간이 시작 시간보다 뒤에 있어야 합니다.';
+      }
+    });
+  }, [register, watch]);
 
   const toggleMode = () => setIsNLMode((prev) => !prev);
 
   const onSubmit = (data) => {
-    const newEvent = { id: Date.now(), ...data };
-    addEvent(newEvent);
+    addEvent({ id: Date.now(), ...data });
     reset();
+    alert('이벤트가 성공적으로 추가되었습니다!'); // Example of user feedback
   };
 
   const handleNLSubmit = () => {
-    const parts = nlInput.split(',').map((p) => p.trim());
-    if (parts.length < 5) {
-      alert('형식이 올바르지 않습니다. (최소: 제목, 시작시간, 종료시간, 카테고리, 감정)');
-      return;
+    try {
+      const newEvent = parseNaturalLanguageInput(nlInput);
+      addEvent({ id: Date.now(), ...newEvent });
+      setNlInput('');
+      alert('이벤트가 성공적으로 추가되었습니다!');
+    } catch (error) {
+      alert(error.message);
     }
-    const newEvent = {
-      id: Date.now(),
-      title: parts[0],
-      startTime: parts[1],
-      endTime: parts[2],
-      category: parts[3],
-      mood: parts[4],
-      description: parts[5] || '',
-    };
-    addEvent(newEvent);
-    setNlInput('');
   };
 
-  // 공통 입력 필드 설정
   const inputFields = [
     { id: 'title', label: '제목', type: 'text', placeholder: '제목을 입력하세요' },
     { id: 'startTime', label: '시작 시간', type: 'datetime-local' },
@@ -75,6 +80,8 @@ export default function EventForm({ addEvent }) {
         <textarea
           id={id}
           {...register(id, required && { required: `${label}을(를) 입력하세요.` })}
+          aria-invalid={errors[id] ? "true" : "false"}
+          aria-describedby={`${id}-error`}
           placeholder={placeholder}
         />
       ) : (
@@ -82,10 +89,12 @@ export default function EventForm({ addEvent }) {
           id={id}
           type={type}
           {...register(id, required && { required: `${label}을(를) 입력하세요.` })}
+          aria-invalid={errors[id] ? "true" : "false"}
+          aria-describedby={`${id}-error`}
           placeholder={placeholder}
         />
       )}
-      {errors[id] && <span className={styles.error}>{errors[id].message}</span>}
+      {errors[id] && <span id={`${id}-error`} className={styles.error}>{errors[id].message}</span>}
     </FormGroup>
   );
 
@@ -120,14 +129,14 @@ export default function EventForm({ addEvent }) {
               value={watch('category')}
               onChange={(value) => setValue('category', value, { shouldValidate: true })}
             />
-            {errors.category && <span className={styles.error}>{errors.category.message}</span>}
+            {errors.category && <span id="category-error" className={styles.error}>{errors.category.message}</span>}
           </FormGroup>
           <FormGroup label="감정 선택">
             <MoodSelector
               value={watch('mood')}
               onChange={(value) => setValue('mood', value, { shouldValidate: true })}
             />
-            {errors.mood && <span className={styles.error}>{errors.mood.message}</span>}
+            {errors.mood && <span id="mood-error" className={styles.error}>{errors.mood.message}</span>}
           </FormGroup>
           <button type="submit" className={styles.submitButton}>
             추가
