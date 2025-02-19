@@ -1,0 +1,21 @@
+.breakdown {
+  width: 100%;
+  min-width: unset;
+}
+
+.breakdownTitle {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  font-size: 1rem;
+  margin: 0.3rem 0;
+} 

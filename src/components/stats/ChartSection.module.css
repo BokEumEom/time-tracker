@@ -1,0 +1,13 @@
+.chartSection {
+  text-align: center;
+}
+
+.chartHeading {
+  font-size: 1rem;
+}
+
+.chart {
+  height: 300px;
+  width: 100%;
+  padding: 0.5rem;
+} 

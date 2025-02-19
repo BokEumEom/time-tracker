@@ -1,87 +1,8 @@
 /* src/pages/Stats.module.css */
 .statsContainer {
-  max-width: 900px;
+  max-width: 600px;
   background-color: var(--bg-color);
   border-radius: 8px;
   color: var(--text-color);
-}
-
-/* 요약 카드 대시보드 */
-.summaryCards {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.card {
-  background-color: #f7f7f7;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 1.5rem;
-  flex: 1;
-  min-width: 200px;
-  text-align: center;
-}
-
-.cardTitle {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.cardValue {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-/* 차트 영역 */
-.chartSection {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.chartHeading {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.chartPlaceholder {
-  height: 200px;
-  border: 2px dashed #ccc;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #777;
-}
-
-/* 상세 데이터 목록 */
-.breakdownSection {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: space-between;
-}
-
-.breakdown {
-  flex: 1;
-  min-width: 250px;
-}
-
-.breakdownTitle {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.3rem;
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-}
-
-.listItem {
-  font-size: 1rem;
-  margin: 0.3rem 0;
+  padding: 1rem;
 }
