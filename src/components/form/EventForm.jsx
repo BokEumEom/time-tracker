@@ -1,13 +1,13 @@
-// src/components/EventForm.jsx
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Pencil } from 'lucide-react';
-import FormGroup from './FormGroup';
-import styles from './EventForm.module.css';
-import { parseNaturalLanguageInput } from '../../utils/naturalLanguageParser';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEventForm } from '../../hooks/useEventForm';
+import FormGroup from './FormGroup';
 import NaturalLanguageForm from './NaturalLanguageForm';
 import StandardForm from './StandardForm';
+import VoiceInput from './VoiceInput'; // 음성 입력 컴포넌트 import
+import { parseNaturalLanguageInput } from '../../utils/naturalLanguageParser';
+import { useEventForm } from '../../hooks/useEventForm';
+import styles from './EventForm.module.css';
 
 export default function EventForm({ addEvent }) {
   const {
@@ -21,7 +21,7 @@ export default function EventForm({ addEvent }) {
     setValue,
     watch,
     errors,
-    registerFields
+    registerFields,
   } = useEventForm(addEvent);
 
   useEffect(registerFields, [registerFields]);
@@ -29,7 +29,7 @@ export default function EventForm({ addEvent }) {
   const onSubmit = (data) => {
     addEvent({ id: Date.now(), ...data });
     reset();
-    alert('이벤트가 성공적으로 추가되었습니다!'); // Example of user feedback
+    alert('이벤트가 성공적으로 추가되었습니다!');
   };
 
   const handleNLSubmit = () => {
@@ -41,6 +41,10 @@ export default function EventForm({ addEvent }) {
     } catch (error) {
       alert(error.message);
     }
+  };
+
+  const handleVoiceResult = (transcript) => {
+    setNlInput(transcript);
   };
 
   const inputFields = [
@@ -96,11 +100,14 @@ export default function EventForm({ addEvent }) {
           className={styles.formContent}
         >
           {isNLMode ? (
-            <NaturalLanguageForm
-              nlInput={nlInput}
-              setNlInput={setNlInput}
-              onSubmit={handleNLSubmit}
-            />
+            <>
+              <NaturalLanguageForm
+                nlInput={nlInput}
+                setNlInput={setNlInput}
+                onSubmit={handleNLSubmit}
+              />
+              <VoiceInput onResult={handleVoiceResult} />
+            </>
           ) : (
             <StandardForm
               inputFields={inputFields}

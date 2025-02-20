@@ -1,0 +1,16 @@
+/* src/components/VoiceInput.module.css */
+.voiceInput {
+  display: inline-block;
+}
+
+.microphoneButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.microphoneButton:hover {
+  transform: scale(1.1);
+}
