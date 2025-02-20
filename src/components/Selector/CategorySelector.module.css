@@ -16,10 +16,7 @@
   cursor: pointer;
   transition: all 0.2s;
   outline: none;
-}
-
-.categoryButton:focus {
-  outline: none;
+  color: var(--text-color);
 }
 
 .categoryButton span {
