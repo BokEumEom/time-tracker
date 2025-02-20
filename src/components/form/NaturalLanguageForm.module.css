@@ -1,0 +1,21 @@
+.formText {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.textareaWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.textareaWrapper textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 8px;
+}
