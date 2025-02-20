@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import FormGroup from './FormGroup';
 import NaturalLanguageForm from './NaturalLanguageForm';
 import StandardForm from './StandardForm';
-import VoiceInput from './VoiceInput'; // 음성 입력 컴포넌트 import
 import { parseNaturalLanguageInput } from '../../utils/naturalLanguageParser';
 import { useEventForm } from '../../hooks/useEventForm';
 import styles from './EventForm.module.css';
@@ -100,14 +99,11 @@ export default function EventForm({ addEvent }) {
           className={styles.formContent}
         >
           {isNLMode ? (
-            <>
-              <NaturalLanguageForm
-                nlInput={nlInput}
-                setNlInput={setNlInput}
-                onSubmit={handleNLSubmit}
-              />
-              <VoiceInput onResult={handleVoiceResult} />
-            </>
+            <NaturalLanguageForm
+              nlInput={nlInput}
+              setNlInput={setNlInput}
+              onSubmit={handleNLSubmit}
+            />
           ) : (
             <StandardForm
               inputFields={inputFields}

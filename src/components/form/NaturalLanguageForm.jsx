@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+// src/components/NaturalLanguageForm.jsx
+import React from 'react';
 import FormGroup from './FormGroup';
 import Button from '../common/Button';
-import VoiceInput from '../components/VoiceInput'; // VoiceInput 컴포넌트 경로에 맞게 수정
+import VoiceInput from './VoiceInput';
 import styles from './NaturalLanguageForm.module.css';
 
 export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
-  // 음성 인식 결과를 텍스트 입력란에 추가하기 위한 상태 관리
-  const [isListening, setIsListening] = useState(false);
-
-  // 음성 인식 결과를 처리하는 함수
   const handleVoiceResult = (transcript) => {
     setNlInput(prevInput => prevInput ? `${prevInput}, ${transcript}` : transcript);
   };
 
   return (
     <>
+      <VoiceInput 
+        onResult={handleVoiceResult}
+      />
       <FormGroup label="자연어 기록 입력" id="nlInput">
         <div className={styles.inputContainer}>
-          <div className={styles.toolbar}>
-            <VoiceInput 
-              onResult={handleVoiceResult}
-              onListeningChange={setIsListening}
-            />
-          </div>
           <div className={styles.textareaWrapper}>
             <textarea
               id="nlInput"

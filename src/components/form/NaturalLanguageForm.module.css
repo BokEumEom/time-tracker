@@ -4,9 +4,16 @@
   margin-top: 0.25rem;
 }
 
-.inputContainer {
+.toolbar {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.listeningIndicator {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  font-weight: bold;
 }
 
 .textareaWrapper {

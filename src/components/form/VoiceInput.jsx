@@ -3,9 +3,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Mic, MicOff } from 'lucide-react';
 import styles from './VoiceInput.module.css';
 
-const VoiceInput = ({ onResult }) => {
+const VoiceInput = ({ onResult, onListeningChange }) => {
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef(null);
+
+  // listening 상태가 변경될 때마다 부모 컴포넌트에 알림
+  useEffect(() => {
+    onListeningChange?.(listening);
+  }, [listening, onListeningChange]);
 
   // 음성 인식 시작
   const startListening = () => {
@@ -61,16 +66,14 @@ const VoiceInput = ({ onResult }) => {
   }, []);
 
   return (
-    <div className={styles.voiceInput}>
-      <button
-        onClick={listening ? stopListening : startListening}
-        className={styles.microphoneButton}
-        aria-label={listening ? '음성 입력 중지' : '음성 입력 시작'}
-      >
-        {listening ? <MicOff size={24} /> : <Mic size={24} />}
-      </button>
-    </div>
-  );
+    <button
+      onClick={listening ? stopListening : startListening}
+      className={styles.microphoneButton}
+      aria-label={listening ? '음성 입력 중지' : '음성 입력 시작'}
+    >
+      {listening ? <MicOff size={24} /> : <Mic size={24} />}
+    </button>
+  );  
 };
 
 export default VoiceInput;
