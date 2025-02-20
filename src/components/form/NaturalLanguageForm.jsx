@@ -12,10 +12,14 @@ export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
 
   const handleError = (err) => {
     console.log('Error message:', err.message);
-    const errorMessage = err.message;
-    const [mainError, suggestionsPart] = errorMessage.split('\n');
-    console.log('Split messages:', { mainError, suggestionsPart });
-    setError(mainError);
+    if (!err.message) {
+      setError('알 수 없는 오류가 발생했습니다.');
+      setSuggestions('');
+      return;
+    }
+
+    const [mainError, suggestionsPart] = err.message.split('\n');
+    setError(mainError || '입력 형식이 올바르지 않습니다.');
     setSuggestions(suggestionsPart || '');
   };
 
