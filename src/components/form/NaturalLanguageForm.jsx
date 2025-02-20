@@ -7,7 +7,17 @@ import styles from './NaturalLanguageForm.module.css';
 
 export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
   const [error, setError] = useState('');
+  const [suggestions, setSuggestions] = useState('');
   const parser = new NaturalLanguageParser();
+
+  const handleError = (err) => {
+    console.log('Error message:', err.message);
+    const errorMessage = err.message;
+    const [mainError, suggestionsPart] = errorMessage.split('\n');
+    console.log('Split messages:', { mainError, suggestionsPart });
+    setError(mainError);
+    setSuggestions(suggestionsPart || '');
+  };
 
   const handleVoiceResult = async (transcript) => {
     await parser.initPromise;
@@ -15,8 +25,9 @@ export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
       const result = await parser.parseInput(transcript);
       setNlInput(`${result.title} ${result.startTime} ${result.endTime} ${result.category} ${result.mood} ${result.weather} ${result.description}`);
       setError('');
+      setSuggestions('');
     } catch (err) {
-      setError(err.message);
+      handleError(err);
     }
   };
 
@@ -25,8 +36,9 @@ export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
       await parser.initPromise;
       await parser.parseInput(input);
       setError('');
+      setSuggestions('');
     } catch (err) {
-      setError(err.message);
+      handleError(err);
     }
   };
 
@@ -49,7 +61,12 @@ export default function NaturalLanguageForm({ nlInput, setNlInput, onSubmit }) {
             <small className={styles.formText}>
               형식: 제목,시작시간,[종료시간],카테고리,감정,날씨, (설명 선택)
             </small>
-            {error && <span className={styles.error}>{error}</span>}
+            {error && (
+              <div className={styles.errorContainer}>
+                <span className={styles.error}>{error}</span>
+                {suggestions && <span className={styles.suggestions}>{suggestions}</span>}
+              </div>
+            )}
           </div>
         </div>
       </FormGroup>

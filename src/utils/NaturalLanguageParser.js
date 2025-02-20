@@ -76,7 +76,22 @@ export class NaturalLanguageParser {
   }
 
   async parseInput(input) {
-    if (!this.isInitialized) await this.initPromise;
+    console.log('Parse Input Start:', { isInitialized: this.isInitialized, hasInitPromise: !!this.initPromise });
+    
+    if (!this.isInitialized && !this.initPromise) {
+        console.log('Starting new initialization');
+        this.initPromise = this.initialize();
+    }
+    
+    if (this.initPromise) {
+        console.log('Waiting for initialization to complete');
+        await this.initPromise;
+    }
+
+    console.log('NLP Status:', { 
+        isInitialized: this.isInitialized, 
+        hasNlp: !!this.nlp 
+    });
 
     // 입력을 정리하고 쉼표(,)를 기준으로 분리한 후, 각 부분의 앞뒤 공백 제거
     const cleanedInput = input.replace(/\s+/g, ' ').trim();
