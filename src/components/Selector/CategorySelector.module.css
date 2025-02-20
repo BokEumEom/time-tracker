@@ -15,6 +15,11 @@
   background: none;
   cursor: pointer;
   transition: all 0.2s;
+  outline: none;
+}
+
+.categoryButton:focus {
+  outline: none;
 }
 
 .categoryButton span {

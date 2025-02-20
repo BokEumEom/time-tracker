@@ -15,7 +15,12 @@
     background: none;
     cursor: pointer;
     transition: all 0.2s;
+    outline: none;
 }
+
+.weatherButton:focus {
+    outline: none;
+  }
 
 .weatherButton:hover {
     background-color: var(--primary-hover);
