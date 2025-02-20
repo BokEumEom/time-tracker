@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+// src/components/form/EventForm.jsx (일부)
+import React, { useMemo, useEffect } from 'react';
 import { Pencil } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FormGroup from './FormGroup';
 import NaturalLanguageForm from './NaturalLanguageForm';
 import StandardForm from './StandardForm';
-import { parseNaturalLanguageInput } from '../../utils/naturalLanguageParser';
+import { NaturalLanguageParser } from '../../utils/NaturalLanguageParser';
 import { useEventForm } from '../../hooks/useEventForm';
 import styles from './EventForm.module.css';
 
@@ -23,7 +24,17 @@ export default function EventForm({ addEvent }) {
     registerFields,
   } = useEventForm(addEvent);
 
-  useEffect(registerFields, [registerFields]);
+  // isNLMode가 true일 때만 NLP 초기화를 수행하도록 useMemo를 사용
+  const parser = useMemo(() => {
+    return isNLMode ? new NaturalLanguageParser(true) : null;
+  }, [isNLMode]);
+
+  useEffect(() => {
+    registerFields();
+    if (isNLMode && parser) {
+      parser.initPromise.catch(err => console.error('NLP 초기화 실패:', err));
+    }
+  }, [registerFields, isNLMode, parser]);
 
   const onSubmit = (data) => {
     addEvent({ id: Date.now(), ...data });
@@ -31,9 +42,12 @@ export default function EventForm({ addEvent }) {
     alert('이벤트가 성공적으로 추가되었습니다!');
   };
 
-  const handleNLSubmit = () => {
+  const handleNLSubmit = async () => {
+    if (!parser) return;
     try {
-      const newEvent = parseNaturalLanguageInput(nlInput);
+      await parser.initPromise; // NLP 초기화 대기
+      const newEvent = await parser.parseInput(nlInput);
+      console.log('Parsed Event:', newEvent);
       addEvent({ id: Date.now(), ...newEvent });
       setNlInput('');
       alert('이벤트가 성공적으로 추가되었습니다!');
@@ -103,6 +117,7 @@ export default function EventForm({ addEvent }) {
               nlInput={nlInput}
               setNlInput={setNlInput}
               onSubmit={handleNLSubmit}
+              onVoiceResult={handleVoiceResult}
             />
           ) : (
             <StandardForm

@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nlpjs/core": "^5.0.0-alpha.5",
+    "@nlpjs/lang-ko": "^5.0.0-alpha.5",
+    "@nlpjs/nlp": "^5.0.0-alpha.5",
     "chart.js": "^4.4.7",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.4.4",
     "lucide-react": "^0.475.0",
+    "node-nlp": "^5.0.0-alpha.5",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
