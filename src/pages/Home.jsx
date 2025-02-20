@@ -26,7 +26,13 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.homeContainer}>
+    <motion.div 
+      className={styles.homeContainer}
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Timeline events={events} />
       <motion.button 
         className={styles.fab}
@@ -41,6 +47,6 @@ export default function Home() {
         onClose={() => setIsModalOpen(false)}
         addEvent={addEvent}
       />
-    </div>
+    </motion.div>
   );
 }

@@ -108,7 +108,7 @@ export default function EventForm({ addEvent }) {
           transition={{ 
             duration: 0.3,
             ease: "easeInOut",
-            height: { duration: 0.4 }
+            height: { duration: 0.3 }
           }}
           className={styles.formContent}
         >

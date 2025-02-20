@@ -16,7 +16,7 @@
   position: relative;
   background: white;
   width: 100%;
-  max-height: 90vh; /* 모달의 최대 높이 설정 */
+  max-height: 70vh; /* 모달의 최대 높이 설정 */
   overflow-y: auto; /* 스크롤 가능하게 */
   -webkit-overflow-scrolling: touch; /* iOS 스크롤링 부드럽게 */
   border-radius: 20px 20px 0 0; /* 위쪽 모서리만 둥글게 */

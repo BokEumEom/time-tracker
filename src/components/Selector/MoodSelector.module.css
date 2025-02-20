@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.65rem;
+  padding: 0.2rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   background: none;
@@ -19,7 +19,7 @@
 }
 
 .moodOption:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-hover);
 }
 
 .radioInput {
@@ -49,6 +49,7 @@
   margin-top: 0.1rem;
   color: var(--text-color);
   transition: color 0.3s ease;
+  font-family: var(--font-family);
 }
 
 /* 다크모드 대응 */

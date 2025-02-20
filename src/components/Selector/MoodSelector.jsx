@@ -1,6 +1,26 @@
-// src/components/MoodSelector.jsx
 import React from 'react';
-import { Smile, Meh, Frown, Heart, Angry, Laugh, Annoyed, Coffee, PartyPopper, BatteryWarning, Pill, Snail, Headphones, Moon } from 'lucide-react';
+import { 
+  Smile, 
+  Meh, 
+  Frown, 
+  Heart, 
+  Angry, 
+  Laugh, 
+  Annoyed, 
+  Coffee, 
+  PartyPopper, 
+  BatteryWarning, 
+  Pill, 
+  Snail, 
+  Headphones, 
+  Moon,
+  PersonStanding,
+  EyeClosed,   // 우울
+  Sparkles,    // 희망
+  AlertCircle, // 불안
+  Siren,        // 혼란
+  HeartHandshake,          // 따뜻함
+} from 'lucide-react';
 import styles from './MoodSelector.module.css';
 
 const DEFAULT_ICON_SIZE = 16;
@@ -20,6 +40,13 @@ const createMoods = (iconSize = DEFAULT_ICON_SIZE) => [
   { value: 'thinking', label: '생각', icon: <Snail size={iconSize} /> },
   { value: 'flutter', label: '설렘', icon: <Headphones size={iconSize} /> },
   { value: 'sleepy', label: '졸림', icon: <Moon size={iconSize} /> },
+  // 추가된 감정
+  { value: 'depressed', label: '우울', icon: <EyeClosed size={iconSize} /> },
+  { value: 'hopeful', label: '희망', icon: <Sparkles size={iconSize} /> },
+  { value: 'anxious', label: '불안', icon: <AlertCircle size={iconSize} /> },
+  { value: 'confused', label: '혼란', icon: <Siren size={iconSize} /> },
+  { value: 'warm', label: '따뜻함', icon: <HeartHandshake size={iconSize} /> },
+  { value: 'energetic', label: '활기', icon: <PersonStanding size={iconSize} /> },
 ];
 
 export default function MoodSelector({ value, onChange, iconSize = DEFAULT_ICON_SIZE }) {

@@ -21,7 +21,18 @@ import {
   Baby,
   Film,
   Shirt,
-  Trash2
+  Trash2,
+  Utensils,
+  Landmark,
+  PenSquare, // 글쓰기
+  Brush,     // 미술
+  Headphones,// 오디오북/팟캐스트
+  Sprout,    // 정원 가꾸기
+  Laptop,    // 코딩
+  Calendar,  // 일정 관리
+  Map,       // 탐험
+  Gift,      // 선물 준비
+  Wrench     // 수리
 } from 'lucide-react';
 
 const categories = [
@@ -46,6 +57,18 @@ const categories = [
   { value: 'movie', label: '영화', icon: Film },
   { value: 'fashion', label: '패션', icon: Shirt },
   { value: 'cleaning', label: '청소', icon: Trash2 },
+  { value: 'cooking', label: '요리', icon: Utensils },
+  { value: 'finance', label: '재테크', icon: Landmark },
+  // 추가된 카테고리
+  { value: 'writing', label: '글쓰기', icon: PenSquare },
+  { value: 'art', label: '미술', icon: Brush },
+  { value: 'listening', label: '오디오북', icon: Headphones },
+  { value: 'gardening', label: '정원', icon: Sprout },
+  { value: 'coding', label: '코딩', icon: Laptop },
+  { value: 'planning', label: '일정관리', icon: Calendar },
+  { value: 'exploring', label: '탐험', icon: Map },
+  { value: 'gifting', label: '선물준비', icon: Gift },
+  { value: 'repair', label: '수리', icon: Wrench },
 ];
 
 export default function CategorySelector({ value, onChange }) {
@@ -65,4 +88,4 @@ export default function CategorySelector({ value, onChange }) {
       ))}
     </div>
   );
-} 
+}

@@ -5,6 +5,7 @@ import SummaryCards from '../components/stats/SummaryCards';
 import ChartSection from '../components/stats/ChartSection';
 import Breakdown from '../components/stats/Breakdown';
 import BreakdownSection from '../components/stats/BreakdownSection';
+import { motion } from 'framer-motion';
 
 function Stats() {
   const [events, setEvents] = useState([]);
@@ -62,7 +63,13 @@ function Stats() {
   }));
 
   return (
-    <div className={styles.statsContainer}>
+    <motion.div 
+      className={styles.statsContainer}
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <SummaryCards 
         totalEvents={totalEvents} 
         hours={hours} 
@@ -86,7 +93,7 @@ function Stats() {
           />
         </BreakdownSection>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
